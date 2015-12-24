@@ -323,8 +323,11 @@ function move(x,y) {
 
 	// now we paint the stars
 	var offset = 8;
+	var top_off = 256;
+	var left_off = 0;
 
 	// draw bottom left
+
 	var sec = x+":"+y;
 	console.log(c[sec]);
 	for(i = 0;i < c[sec].length;i++) {
@@ -332,6 +335,9 @@ function move(x,y) {
 		star.href = "#";
 		star.title = c[sec][i].sd.name;
 		star.class = "star";
+		star.style.top = (c[sec][i].y * offset + top_off);
+		console.log(c[sec][i].y * offset + top_off);
+		star.style.left = (c[sec][i].x * offset);
 		console.log(star);exit;quit;
 	}
 
