@@ -335,10 +335,9 @@ function move(x,y) {
 		star.href = "#";
 		star.title = c[sec][i].sd.name;
 		star.class = "star";
-		star.style.top = (c[sec][i].y * offset + top_off);
-		console.log(c[sec][i].y * offset + top_off);
-		star.style.left = (c[sec][i].x * offset);
-		console.log(star);exit;quit;
+		star.style.top = String(c[sec][i].y * offset + top_off) + "px";
+		star.style.left = String(c[sec][i].x * offset) + "px";
+		console.log(star.style);exit;quit;
 	}
 
 }
