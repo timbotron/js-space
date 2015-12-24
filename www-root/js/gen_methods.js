@@ -73,13 +73,14 @@ function genPin(scratch,ss,md) {
 	return pin;
 }
 
-function gen_map() {
+function gen_mainseq_map() {
 	// we are going to generate all of the startypes
 	// Data: https://en.wikipedia.org/wiki/Stellar_classification#Harvard_spectral_classification
 
 	var r = new Array(6);
 
 	r[0] = {cls: "B",
+				type:"main sequence",
 				min_t: 100,
 				max_t: 300,
 				color: "deep blue white",
@@ -90,6 +91,7 @@ function gen_map() {
 				min_l: 25,
 				max_l: 30000};
 	r[1] = {cls: "A",
+				type:"main sequence",
 				min_t: 75,
 				max_t: 100,
 				color: "blue white",
@@ -100,6 +102,7 @@ function gen_map() {
 				min_l: 5,
 				max_l: 25};
 	r[2] = {cls: "F",
+				type:"main sequence",
 				min_t: 60,
 				max_t: 75,
 				color: "white",
@@ -110,6 +113,7 @@ function gen_map() {
 				min_l: 1.5,
 				max_l: 5};
 	r[3] = {cls: "G",
+				type:"main sequence",
 				min_t: 52,
 				max_t: 60,
 				color: "yellowish white",
@@ -120,6 +124,7 @@ function gen_map() {
 				min_l: 0.6,
 				max_l: 1.5};
 	r[4] = {cls: "K",
+				type:"main sequence",
 				min_t: 37,
 				max_t: 52,
 				color: "pale yellow orange",
@@ -130,6 +135,7 @@ function gen_map() {
 				min_l: 0.08,
 				max_l: 0.6};
 	r[5] = {cls: "M",
+				type:"main sequence",
 				min_t: 24,
 				max_t: 37,
 				color: "light orange red",
@@ -142,39 +148,109 @@ function gen_map() {
 	return r;
 }
 
+function gen_other_map() {
+	// These are white dwarf or Red Giants
+
+	var r = new Array(2);
+
+	r[0] = {cls: "F",
+				type:"white dwarf",
+				min_t: 4,
+				max_t: 150,
+				color: "dim white",
+				min_m: 0.5,
+				max_m: 0.7,
+				min_r: 0.008,
+				max_r: 0.02,
+				min_l: 0.1,
+				max_l: 0.001};
+	r[1] = {cls: "K",
+				type:"giant",
+				min_t: 30,
+				max_t: 45,
+				color: "red",
+				min_m: 0.3,
+				max_m: 8,
+				min_r: 10,
+				max_r: 100,
+				min_l: 100,
+				max_l: 400};
+	
+	return r;
+}
+
+function genName()
+{
+    var text = "";
+    var let = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var num = "0123456789";
+
+    for(i=0;i < 4;i++) {
+        text += let.charAt(Math.floor(Math.random() * let.length));
+    }
+    text += '-';
+    for(i=0;i < 4;i++) {
+        text += num.charAt(Math.floor(Math.random() * num.length));
+    }
+
+    return text;
+}
+
 function getStar() {
-	var m = gen_map();
-
-	var r = randBetween(0,10000);
-
+	// first, is this main sequence or not?
+	var r = randBetween(0,10);
 	var i;
 
-	if(r <= 13) {
-		i = 0;
-	} else if(r <= 60) {
-		i = 1;
-	} else if(r <= 300) {
-		i = 2;
-	} else if(r <= 760) {
-		i = 3;
-	} else if(r <= 1210) {
-		i = 4;
+	if(r >= 1) {
+		var m = gen_mainseq_map();
+
+		r = randBetween(0,10000);
+
+		if(r <= 13) {
+			i = 0;
+		} else if(r <= 60) {
+			i = 1;
+		} else if(r <= 300) {
+			i = 2;
+		} else if(r <= 760) {
+			i = 3;
+		} else if(r <= 1210) {
+			i = 4;
+		} else {
+			i = 5;
+		}
 	} else {
-		i = 5;
+		var m = gen_other_map();
+
+		r = randBetween(0,10);
+
+		if(r <= 9) {
+			i = 0;
+		} else {
+			i = 1;
+		}
 	}
+
+	
 	var ret = {};
 	var tmp;
+	var fraction;
 	// effective temperature
 	tmp = randBetween(m[i].min_t,m[i].max_t);
+	fraction = tmp / m[i].max_t;
 	ret.t = tmp * 100;
+	ret.type = m[i].type;
+	ret.cls = m[i].cls;
 	ret.c = m[i].color;
-	tmp = randBetween(m[i].min_m,m[i].max_m,true);
+	tmp = m[i].max_m * fraction;
 	ret.m = tmp.toFixed(2);
-	tmp = randBetween(m[i].min_r,m[i].max_r,true);
+	tmp = m[i].max_r * fraction;
 	ret.r = tmp.toFixed(2);
-	tmp = randBetween(m[i].min_l,m[i].max_l,true);
+	tmp = m[i].max_l * fraction;
 	ret.l = tmp.toFixed(3);
-	console.log(ret);exit;quit;
+	ret.name = genName();
+	
+	return ret;
 
 }
 
@@ -185,6 +261,7 @@ function birth() {
 
 	// https://github.com/davidbau/seedrandom
 	Math.seedrandom('10.16.2010');
+	var star_count = 0;
 
 	
 	// var tmp = JSON.stringify(scratch);
@@ -205,6 +282,7 @@ function birth() {
 				// generating stars
 				var star = genPin(scratch,c.sector_size,c.min_star_distance);
 				star.sd = getStar();
+				star_count++;
 				//output_this("Star! ("+star.x+","+star.y+")");
 				sectors[sector_x+":"+sector_y].push(star);
 
@@ -218,6 +296,7 @@ function birth() {
 	var end = Date.now();
 	output_this("Saving galaxy..");
 	s('sectors',JSON.stringify(sectors));
+	output_this(star_count+" stars generated..");
 	output_this("Time elapsed: "+(end - start)+" ms");
 }
 
