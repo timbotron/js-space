@@ -68,6 +68,98 @@ function genPin(scratch,ss,md) {
 	return pin;
 }
 
+function gen_map() {
+	// we are going to generate all of the startypes
+	// Data: https://en.wikipedia.org/wiki/Stellar_classification#Harvard_spectral_classification
+
+	var r = new Array(6);
+
+	r[0] = {cls: "B",
+				min_t: 100,
+				max_t: 300,
+				color: "deep blue white",
+				min_m: 2.1,
+				max_m: 16,
+				min_r: 1.8,
+				max_r: 6.6,
+				min_l: 25,
+				max_l: 30000};
+	r[1] = {cls: "A",
+				min_t: 75,
+				max_t: 100,
+				color: "blue white",
+				min_m: 1.4,
+				max_m: 2.1,
+				min_r: 1.4,
+				max_r: 1.8,
+				min_l: 5,
+				max_l: 25};
+	r[2] = {cls: "F",
+				min_t: 60,
+				max_t: 75,
+				color: "white",
+				min_m: 1.04,
+				max_m: 1.4,
+				min_r: 1.15,
+				max_r: 1.4,
+				min_l: 1.5,
+				max_l: 5};
+	r[3] = {cls: "G",
+				min_t: 52,
+				max_t: 60,
+				color: "yellowish white",
+				min_m: 0.8,
+				max_m: 1.04,
+				min_r: 0.96,
+				max_r: 1.15,
+				min_l: 0.6,
+				max_l: 1.5};
+	r[4] = {cls: "K",
+				min_t: 37,
+				max_t: 52,
+				color: "pale yellow orange",
+				min_m: 0.45,
+				max_m: 0.8,
+				min_r: 0.7,
+				max_r: 0.96,
+				min_l: 0.08,
+				max_l: 0.6};
+	r[5] = {cls: "M",
+				min_t: 24,
+				max_t: 37,
+				color: "light orange red",
+				min_m: 0.08,
+				max_m: 0.45,
+				min_r: 0.01,
+				max_r: 0.7,
+				min_l: 0.001,
+				max_l: 0.08};
+	return r;
+}
+
+function getStar() {
+	var m = gen_map();
+
+	var r = randBetween(0,10000);
+
+	var i;
+
+	if(r <= 13) {
+		i = 0;
+	} else if(r <= 60) {
+		i = 1;
+	} else if(r <= 300) {
+		i = 2;
+	} else if(r <= 760) {
+		i = 3;
+	} else if(r <= 1210) {
+		i = 4;
+	} else {
+		i = 5;
+	}
+	console.log("Class: "+m[i].cls);	
+}
+
 function birth() {
 	var start = Date.now();
 	output_this("Beginning galaxy generation..");
@@ -87,14 +179,15 @@ function birth() {
 			// First we create a blank sector, which we will be saving to the sector
 			// array when we're done.
 			var scratch = matrix(c.sector_size,c.sector_size);
-			output_this("Generating Sector ("+sector_x+","+sector_y+")");
+			//output_this("Generating Sector ("+sector_x+","+sector_y+")");
 
 			var ns = randBetween(c.min_stars_per_sector,c.max_stars_per_sector);
 			sectors[sector_x+":"+sector_y] = [];
 			for(aa = 0; aa < ns; aa++) {
 				// generating stars
 				var star = genPin(scratch,c.sector_size,c.min_star_distance);
-				output_this("Star! ("+star.x+","+star.y+")");
+				getStar();
+				//output_this("Star! ("+star.x+","+star.y+")");
 				sectors[sector_x+":"+sector_y].push(star);
 
 
