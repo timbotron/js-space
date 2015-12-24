@@ -8,7 +8,11 @@ function g(v) {
 
 function randBetween(min, max) {
 	var ret = Math.random() * (max - min) + min;
-  return parseInt(ret);
+	if(arguments.length > 2) {
+		return ret;
+	} else {
+	  return parseInt(ret);
+	}
 }
 
 function output_this(str) {
@@ -37,7 +41,8 @@ function genPin(scratch,ss,md) {
 	//Generate a pin
 	var pin = {
 			'x':randBetween(0,ss),
-			'y':randBetween(0,ss)
+			'y':randBetween(0,ss),
+			'sd':null
 			};
 	// Get range (beginning, terminating) to check for neighbors
 	var bx = pin.x - md
@@ -157,7 +162,20 @@ function getStar() {
 	} else {
 		i = 5;
 	}
-	console.log("Class: "+m[i].cls);	
+	var ret = {};
+	var tmp;
+	// effective temperature
+	tmp = randBetween(m[i].min_t,m[i].max_t);
+	ret.t = tmp * 100;
+	ret.c = m[i].color;
+	tmp = randBetween(m[i].min_m,m[i].max_m,true);
+	ret.m = tmp.toFixed(2);
+	tmp = randBetween(m[i].min_r,m[i].max_r,true);
+	ret.r = tmp.toFixed(2);
+	tmp = randBetween(m[i].min_l,m[i].max_l,true);
+	ret.l = tmp.toFixed(3);
+	console.log(ret);exit;quit;
+
 }
 
 function birth() {
@@ -186,7 +204,7 @@ function birth() {
 			for(aa = 0; aa < ns; aa++) {
 				// generating stars
 				var star = genPin(scratch,c.sector_size,c.min_star_distance);
-				getStar();
+				star.sd = getStar();
 				//output_this("Star! ("+star.x+","+star.y+")");
 				sectors[sector_x+":"+sector_y].push(star);
 
