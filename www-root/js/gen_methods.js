@@ -290,14 +290,51 @@ function birth() {
 			}
 		}
 	}
-	//console.log(sectors);
-
 	
 	var end = Date.now();
 	output_this("Saving galaxy..");
 	s('sectors',JSON.stringify(sectors));
 	output_this(star_count+" stars generated..");
 	output_this("Time elapsed: "+(end - start)+" ms");
+
+	// now lets start with output!!
+	move(0,0);
+}
+
+function move(x,y) {
+	// first update labels
+	var lbl = document.getElementById("sec-00");
+	lbl.innerHTML = "("+x+","+y+")";
+	lbl = document.getElementById("sec-01");
+	lbl.innerHTML = "("+x+","+(y+1)+")";
+	lbl = document.getElementById("sec-10");
+	lbl.innerHTML = "("+(x+1)+","+y+")";
+	lbl = document.getElementById("sec-11");
+	lbl.innerHTML = "("+(x+1)+","+(y+1)+")";
+	// remove current stars
+	var old_stars = document.getElementsByClassName("star");
+	while(old_stars.length > 0){
+        old_stars[0].parentNode.removeChild(old_stars[0]);
+    }
+
+	// we read in config
+	var c = g('sectors');
+	c = JSON.parse(c);
+
+	// now we paint the stars
+	var offset = 8;
+
+	// draw bottom left
+	var sec = x+":"+y;
+	console.log(c[sec]);
+	for(i = 0;i < c[sec].length;i++) {
+		var star = document.createElement('a');
+		star.href = "#";
+		star.title = c[sec][i].sd.name;
+		star.class = "star";
+		console.log(star);exit;quit;
+	}
+
 }
 
 function start() {
