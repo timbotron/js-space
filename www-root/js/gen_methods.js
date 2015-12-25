@@ -241,7 +241,7 @@ function getStar() {
 	ret.t = tmp * 100;
 	ret.type = m[i].type;
 	ret.cls = m[i].cls;
-	ret.c = m[i].color;
+	ret.color = m[i].color;
 	tmp = m[i].max_m * fraction;
 	ret.m = tmp.toFixed(2);
 	tmp = m[i].max_r * fraction;
@@ -356,7 +356,7 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 	var sec = x+":"+y;
 	for(i = 0;i < c[sec].length;i++) {
 		var star = document.createElement('a');
-		star.href = "#";
+		star.href = "javascript:;";
 		star.title = c[sec][i].sd.name;
 		star.className = "star";
 		star.dataset.id = sec+"."+i;
@@ -368,7 +368,6 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 }
 
 function star_info() {
-	console.log(this.dataset.id);
 	var info = this.dataset.id.split('.');
 	var sec = info[0];
 	var i = info[1];
@@ -376,12 +375,14 @@ function star_info() {
 	// we read in config
 	var c = g('sectors');
 	c = JSON.parse(c);
-
 	output_this("==========================================");
 	output_this("Name: "+c[sec][i].sd.name);
 	output_this("Class: "+c[sec][i].sd.cls);
 	output_this("Type: "+c[sec][i].sd.color + " " + c[sec][i].sd.type);
-	output_this("Temp: "+c[sec][i].sd.t + "K");
+	output_this("Temp: "+c[sec][i].sd.t + " K");
+	output_this("Solar Mass: "+c[sec][i].sd.m + " M");
+	output_this("Solar Radii: "+c[sec][i].sd.r + " R");
+	output_this("Lumeniscence: "+c[sec][i].sd.l + " l");
 }
 
 function start() {

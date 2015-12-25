@@ -101,4 +101,6 @@
   font-family: "courier New";
   font-weight: bold;
   padding: 8px;
+  max-height: 300px;
+  overflow: scroll;
 }
