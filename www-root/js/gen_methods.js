@@ -312,9 +312,9 @@ function move(x,y) {
 	lbl = document.getElementById("sec-11");
 	lbl.innerHTML = "("+(x+1)+","+(y+1)+")";
 	// remove current stars
-	var old_stars = document.getElementsByClassName("star");
-	while(old_stars.length > 0){
-        old_stars[0].parentNode.removeChild(old_stars[0]);
+	var stars = document.getElementsByClassName("star");
+	while(stars.length > 0){
+        stars[0].parentNode.removeChild(stars[0]);
     }
 
 	// we read in config
@@ -325,21 +325,63 @@ function move(x,y) {
 	var offset = 8;
 	var top_off = 256;
 	var left_off = 0;
+	var grid = document.getElementsByClassName("grid");
+	grid = grid[0];
 
 	// draw bottom left
+	draw_sector(x,y,c,offset,top_off,left_off,grid);
 
+	// draw bottom right
+	left_off = 256;
+	draw_sector((x+1),y,c,offset,top_off,left_off,grid);
+
+	// draw top left
+	left_off = 0;
+	top_off = 0;
+	draw_sector(x,(y+1),c,offset,top_off,left_off,grid);
+
+	// draw top right
+	left_off = 256;
+	draw_sector((x+1),(y+1),c,offset,top_off,left_off,grid);
+
+	// now we add listeners
+	stars = document.getElementsByClassName("star");
+
+	for(i = 0;i < stars.length; i++) {
+		stars[i].addEventListener("click",star_info,false);
+	}
+}
+
+function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 	var sec = x+":"+y;
-	console.log(c[sec]);
 	for(i = 0;i < c[sec].length;i++) {
 		var star = document.createElement('a');
 		star.href = "#";
 		star.title = c[sec][i].sd.name;
-		star.class = "star";
-		star.style.top = String(c[sec][i].y * offset + top_off) + "px";
-		star.style.left = String(c[sec][i].x * offset) + "px";
-		console.log(star.style);exit;quit;
+		star.className = "star";
+		star.dataset.id = sec+"."+i;
+		star.style.top = String((c[sec][i].y * offset) + top_off) + "px";
+		star.style.left = String((c[sec][i].x * offset) + left_off) + "px";
+		star.style.background = "#FFF";
+		grid.appendChild(star);
 	}
+}
 
+function star_info() {
+	console.log(this.dataset.id);
+	var info = this.dataset.id.split('.');
+	var sec = info[0];
+	var i = info[1];
+
+	// we read in config
+	var c = g('sectors');
+	c = JSON.parse(c);
+
+	output_this("==========================================");
+	output_this("Name: "+c[sec][i].sd.name);
+	output_this("Class: "+c[sec][i].sd.cls);
+	output_this("Type: "+c[sec][i].sd.color + " " + c[sec][i].sd.type);
+	output_this("Temp: "+c[sec][i].sd.t + "K");
 }
 
 function start() {
