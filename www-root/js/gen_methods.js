@@ -314,6 +314,8 @@ function move(x,y) {
 	lbl.innerHTML = "("+(x+1)+","+y+")";
 	lbl = document.getElementById("sec-11");
 	lbl.innerHTML = "("+(x+1)+","+(y+1)+")";
+	var grid = document.getElementsByClassName("grid");
+	grid = grid[0];
 	// remove current stars
 	var stars = document.getElementsByClassName("star");
 	while(stars.length > 0){
@@ -328,8 +330,9 @@ function move(x,y) {
 	var offset = 8;
 	var top_off = 256;
 	var left_off = 0;
-	var grid = document.getElementsByClassName("grid");
-	grid = grid[0];
+
+	
+
 
 	// draw bottom left
 	draw_sector(x,y,c,offset,top_off,left_off,grid);
@@ -353,6 +356,8 @@ function move(x,y) {
 	for(i = 0;i < stars.length; i++) {
 		stars[i].addEventListener("click",star_info,false);
 	}
+
+	grid.dataset.cursec = x+":"+y;
 }
 
 function draw_sector(x,y,c,offset,top_off,left_off,grid) {
@@ -368,6 +373,42 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		star.style.background = "#FFF";
 		grid.appendChild(star);
 	}
+}
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if(e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40') {
+    	var grid = document.getElementsByClassName("grid");
+		grid = grid[0];
+		var sec = grid.dataset.cursec;
+		console.log(sec);
+		sec = sec.split(":");
+		console.log(sec);
+		sec[0] = parseInt(sec[0]);
+		sec[1] = parseInt(sec[1]);
+		e.preventDefault();
+    }
+
+    if (e.keyCode == '38') {
+        // up arrow
+        move(sec[0],(sec[1]+1));
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+        move(sec[0],(sec[1]-1));
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+       move((sec[0]-1),sec[1]);
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+       move((sec[0]+1),sec[1]);
+    }
+
+
 }
 
 function star_info() {
@@ -394,6 +435,7 @@ function start() {
 	oReq.addEventListener("load", function(event) {
 		output_this("Successfully stored config file");
 		s('config',this.responseText);
+		birth();
 	});
 	oReq.open("GET", '/js/config.mk2.json');
 	oReq.send();
@@ -404,6 +446,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	var btn = document.getElementById("build");
 	btn.addEventListener("click",birth,false);
+
+	document.onkeydown = checkKey;
 
 });
 
