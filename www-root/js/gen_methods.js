@@ -38,6 +38,7 @@ function get_config() {
 }
 
 function genPin(scratch,ss,md) {
+	var bx, tx, by, ty, xx, yy = 0;
 	//Generate a pin
 	var pin = {
 			'x':randBetween(0,ss),
@@ -61,6 +62,7 @@ function genPin(scratch,ss,md) {
 	if(ty > ss) {
 		ty = ss;
 	}
+	
 
 	for(xx = bx; xx < tx; xx++) {
 		for(yy = by; yy < ty; yy++) {
@@ -282,6 +284,7 @@ function birth() {
 				// generating stars
 				var star = genPin(scratch,c.sector_size,c.min_star_distance);
 				star.sd = getStar();
+				scratch[star.x][star.y] = 1;
 				star_count++;
 				//output_this("Star! ("+star.x+","+star.y+")");
 				sectors[sector_x+":"+sector_y].push(star);
@@ -377,6 +380,7 @@ function star_info() {
 	c = JSON.parse(c);
 	output_this("==========================================");
 	output_this("Name: "+c[sec][i].sd.name);
+	output_this("Coordinates: S("+sec+") ("+c[sec][i].x+","+c[sec][i].y+")");
 	output_this("Class: "+c[sec][i].sd.cls);
 	output_this("Type: "+c[sec][i].sd.color + " " + c[sec][i].sd.type);
 	output_this("Temp: "+c[sec][i].sd.t + " K");
