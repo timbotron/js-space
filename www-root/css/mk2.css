@@ -1,15 +1,15 @@
 .grid {
   height: 512px;
-  width: 512px;
+  max-width: 512px;
   position: relative;
   background: #000;
 }
 
 .star {
   display: block;
-  border-radius: 5px;
-  width: 8px;
-  height: 8px;
+  border-radius: 100%;
+  width: 1%;
+  height: 1%;
   background: #FFF;
   position: absolute;
 }
@@ -29,6 +29,7 @@
   background: #555;
   position: absolute;
   top: 0px;
+  left: 50%;
   z-index: 100;
 }
 
@@ -39,31 +40,31 @@
   display: block;
   width: 80px;
   position: absolute;
-  left:4px;
+  left:1%;
 }
 #sec-00 {
-  top: 260px;
+  top: 51%;
 }
 #sec-10 {
-  top: 260px;
-  left: 260px;
+  top: 51%;
+  left: 51%;
 }
 #sec-01 {
-  top: 4px;
+  top: 1%;
 }
 #sec-11 {
-  left: 260px;
-  top: 4px;
+  left: 51%;
+  top: 1%;
 }
 
 #glh1 {
-  top: 256px;
+  top: 50%;
 }
 
 
 
 #glv1 {
-  left: 256px;
+  left: 50%;
 }
 
 

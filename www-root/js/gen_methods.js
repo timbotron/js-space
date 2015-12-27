@@ -326,29 +326,52 @@ function move(x,y) {
 	var c = g('sectors');
 	c = JSON.parse(c);
 
-	// now we paint the stars
-	var offset = 8;
-	var top_off = 256;
-	var left_off = 0;
+	var config = g('config');
+	config = JSON.parse(config);
 
-	
+	var offset, top_off, left_off;
 
+	if(grid.offsetWidth >= 512) {
+		// we have 4 quadrants
+		offset = (100 / (parseInt(config.sector_size) * 2));
+		top_off = 50;
+		left_off = 0;
+	} else {
+		// only one sector
+		offset = (100 / parseInt(config.sector_size));
+		top_off = 0;
+		left_off = 0;
+
+		// also lets hide unused labels + lines
+		document.getElementById("sec-01").style.display = 'none';
+		document.getElementById("sec-11").style.display = 'none';
+		document.getElementById("sec-10").style.display = 'none';
+		document.getElementById("glh1").style.display = 'none';
+		document.getElementById("glv1").style.display = 'none';
+		document.getElementById("sec-00").style.top = '1%';
+
+	}
+
+	grid.style.height = grid.offsetWidth;
 
 	// draw bottom left
 	draw_sector(x,y,c,offset,top_off,left_off,grid);
 
-	// draw bottom right
-	left_off = 256;
-	draw_sector((x+1),y,c,offset,top_off,left_off,grid);
+	if(grid.offsetWidth >= 512) {
 
-	// draw top left
-	left_off = 0;
-	top_off = 0;
-	draw_sector(x,(y+1),c,offset,top_off,left_off,grid);
+		// draw bottom right
+		left_off = 50;
+		draw_sector((x+1),y,c,offset,top_off,left_off,grid);
 
-	// draw top right
-	left_off = 256;
-	draw_sector((x+1),(y+1),c,offset,top_off,left_off,grid);
+		// draw top left
+		left_off = 0;
+		top_off = 0;
+		draw_sector(x,(y+1),c,offset,top_off,left_off,grid);
+
+		// draw top right
+		left_off = 50;
+		draw_sector((x+1),(y+1),c,offset,top_off,left_off,grid);
+	}
 
 	// now we add listeners
 	stars = document.getElementsByClassName("star");
@@ -368,8 +391,8 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		star.title = c[sec][i].sd.name;
 		star.className = "star";
 		star.dataset.id = sec+"."+i;
-		star.style.top = String((c[sec][i].y * offset) + top_off) + "px";
-		star.style.left = String((c[sec][i].x * offset) + left_off) + "px";
+		star.style.top = String((c[sec][i].y * offset) + top_off) + "%";
+		star.style.left = String((c[sec][i].x * offset) + left_off) + "%";
 		star.style.background = "#FFF";
 		grid.appendChild(star);
 	}
@@ -383,9 +406,7 @@ function checkKey(e) {
     	var grid = document.getElementsByClassName("grid");
 		grid = grid[0];
 		var sec = grid.dataset.cursec;
-		console.log(sec);
 		sec = sec.split(":");
-		console.log(sec);
 		sec[0] = parseInt(sec[0]);
 		sec[1] = parseInt(sec[1]);
 		e.preventDefault();
