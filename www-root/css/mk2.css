@@ -15,25 +15,6 @@
   position: absolute;
 }
 
-.horiz {
-  width: 100%;
-  height: 1px;
-  background: #555;
-  position: absolute;
-  left: 0px;
-  z-index: 100;
-}
-
-.vert {
-  width: 1px;
-  height: 100%;
-  background: #555;
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  z-index: 100;
-}
-
 .sector-label {
   color: #BBB;
   font-family: Verdana,serif;
@@ -44,56 +25,7 @@
   left:1%;
 }
 #sec-00 {
-  top: 51%;
-}
-#sec-10 {
-  top: 51%;
-  left: 51%;
-}
-#sec-01 {
   top: 1%;
-}
-#sec-11 {
-  left: 51%;
-  top: 1%;
-}
-
-#glh1 {
-  top: 50%;
-}
-
-
-
-#glv1 {
-  left: 50%;
-}
-
-
-
-/* Stars Data! */
-
-#star1 {
-  background: yellow;
-  top: 40px;
-  left: 110px;
-}
-
-#star2 {
-  background: red;
-  top: 220px;
-  left: 40px;
-}
-
-#star3 {
-  background: cyan;
-  top: 350px;
-  left: 290px;
-}
-
-#star4 {
-  background: orange;
-  top: 138px;
-  left: 320px;
 }
 
 

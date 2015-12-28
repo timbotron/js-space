@@ -322,12 +322,7 @@ function move(x,y) {
 	// first update labels
 	var lbl = document.getElementById("sec-00");
 	lbl.innerHTML = "("+x+","+y+")";
-	lbl = document.getElementById("sec-01");
-	lbl.innerHTML = "("+x+","+(y+1)+")";
-	lbl = document.getElementById("sec-10");
-	lbl.innerHTML = "("+(x+1)+","+y+")";
-	lbl = document.getElementById("sec-11");
-	lbl.innerHTML = "("+(x+1)+","+(y+1)+")";
+	
 	var grid = document.getElementsByClassName("grid");
 	grid = grid[0];
 	// remove current stars
@@ -345,47 +340,18 @@ function move(x,y) {
 
 	var offset, top_off, left_off;
 
-	if(grid.offsetWidth >= 512) {
-		// we have 4 quadrants
-		offset = (100 / (parseInt(config.sector_size) * 2));
-		top_off = 50;
-		left_off = 0;
-	} else {
-		// only one sector
-		offset = (100 / parseInt(config.sector_size));
-		top_off = 0;
-		left_off = 0;
+	
+	// only one sector
+	offset = (100 / parseInt(config.sector_size));
+	top_off = 0;
+	left_off = 0;
 
-		// also lets hide unused labels + lines
-		document.getElementById("sec-01").style.display = 'none';
-		document.getElementById("sec-11").style.display = 'none';
-		document.getElementById("sec-10").style.display = 'none';
-		document.getElementById("glh1").style.display = 'none';
-		document.getElementById("glv1").style.display = 'none';
-		document.getElementById("sec-00").style.top = '1%';
-
-	}
+		
 
 	grid.style.height = grid.offsetWidth + "px";
 
 	// draw bottom left
 	draw_sector(x,y,c,offset,top_off,left_off,grid);
-
-	if(grid.offsetWidth >= 512) {
-
-		// draw bottom right
-		left_off = 50;
-		draw_sector((x+1),y,c,offset,top_off,left_off,grid);
-
-		// draw top left
-		left_off = 0;
-		top_off = 0;
-		draw_sector(x,(y+1),c,offset,top_off,left_off,grid);
-
-		// draw top right
-		left_off = 50;
-		draw_sector((x+1),(y+1),c,offset,top_off,left_off,grid);
-	}
 
 	// now we add listeners
 	stars = document.getElementsByClassName("star");
