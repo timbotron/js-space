@@ -3,6 +3,7 @@
   max-width: 512px;
   position: relative;
   background: #000;
+  overflow: hidden;
 }
 
 .star {

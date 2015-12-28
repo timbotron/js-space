@@ -202,6 +202,7 @@ function getStar() {
 	// first, is this main sequence or not?
 	var r = randBetween(0,10);
 	var i;
+	var color;
 
 	if(r >= 1) {
 		var m = gen_mainseq_map();
@@ -210,17 +211,27 @@ function getStar() {
 
 		if(r <= 13) {
 			i = 0;
+			color = "#AABBFF";
 		} else if(r <= 60) {
 			i = 1;
+			color = "#CAD8FF";
 		} else if(r <= 300) {
 			i = 2;
+			color = "#FBF8FF";
+			
 		} else if(r <= 760) {
 			i = 3;
+			color = "#FFF4E8";
 		} else if(r <= 1210) {
 			i = 4;
+			color = "#FFDDB4";
 		} else {
 			i = 5;
+			color = "#FFBD6F";
+
 		}
+
+
 	} else {
 		var m = gen_other_map();
 
@@ -228,8 +239,10 @@ function getStar() {
 
 		if(r <= 9) {
 			i = 0;
+			color = "#AAA";
 		} else {
 			i = 1;
+			color = "#FFBD6F";
 		}
 	}
 
@@ -244,6 +257,7 @@ function getStar() {
 	ret.type = m[i].type;
 	ret.cls = m[i].cls;
 	ret.color = m[i].color;
+	ret.hexcolor = color;
 	tmp = m[i].max_m * fraction;
 	ret.m = tmp.toFixed(2);
 	tmp = m[i].max_r * fraction;
@@ -262,7 +276,7 @@ function birth() {
 	var c = get_config();
 
 	// https://github.com/davidbau/seedrandom
-	Math.seedrandom('10.16.2010');
+	Math.seedrandom('10.16.2010 TJH AND TLL FOREVA!');
 	var star_count = 0;
 
 	
@@ -393,7 +407,7 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		star.dataset.id = sec+"."+i;
 		star.style.top = String((c[sec][i].y * offset) + top_off) + "%";
 		star.style.left = String((c[sec][i].x * offset) + left_off) + "%";
-		star.style.background = "#FFF";
+		star.style.background = c[sec][i].sd.hexcolor;
 		grid.appendChild(star);
 	}
 }
