@@ -352,7 +352,7 @@ function move(x,y) {
 
 	}
 
-	grid.style.height = grid.offsetWidth;
+	grid.style.height = grid.offsetWidth + "px";
 
 	// draw bottom left
 	draw_sector(x,y,c,offset,top_off,left_off,grid);
