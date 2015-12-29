@@ -18,6 +18,7 @@ function randBetween(min, max) {
 function output_this(str) {
 	var output = document.getElementsByClassName('output');
   output[0].innerHTML += str +'<br />';
+  output[0].scrollTop = output[0].scrollHeight;
 }
 
 function matrix(length) {
