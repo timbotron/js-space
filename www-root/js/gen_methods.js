@@ -300,6 +300,9 @@ function birth() {
 				star.sd = getStar();
 				scratch[star.x][star.y] = 1;
 				star_count++;
+				if(star.x == 0) {
+					console.log(sector_x,sector_y,star.x,star.y);
+				}
 				//output_this("Star! ("+star.x+","+star.y+")");
 				sectors[sector_x+":"+sector_y].push(star);
 
@@ -315,10 +318,10 @@ function birth() {
 	output_this("Time elapsed: "+(end - start)+" ms");
 
 	// now lets start with output!!
-	move(0,0);
+	move(0,0,38);
 }
 
-function move(x,y) {
+function move(x,y,dir) {
 	// we read in config
 	var c = g('sectors');
 	c = JSON.parse(c);
@@ -326,11 +329,19 @@ function move(x,y) {
 	var config = g('config');
 	config = JSON.parse(config);
 
-	// Are we moving to an unknown regiod?
+	// Are we moving to an unknown region?
 	var sec = x+":"+y;
 	if(c[sec] === undefined && config.is_infinite === false) {
 		// give feedback that you cant go that way
-		console.log('darbe dragons');
+		if(dir === 38) {
+			barrier('borderTop');
+		} else if(dir === 40) {
+			barrier('borderBottom');
+		} else if(dir === 39) {
+			barrier('borderRight');
+		} else {
+			barrier('borderLeft');
+		}
 		return false;
 	}
 	
@@ -351,7 +362,7 @@ function move(x,y) {
 	
 	// only one sector
 	offset = (100 / parseInt(config.sector_size));
-	top_off = 0;
+	top_off = 100;
 	left_off = 0;
 
 	grid.style.height = grid.offsetWidth + "px";
@@ -377,11 +388,29 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		star.title = c[sec][i].sd.name;
 		star.className = "star";
 		star.dataset.id = sec+"."+i;
-		star.style.top = String((c[sec][i].y * offset) + top_off) + "%";
+		star.style.top = String(top_off - (c[sec][i].y * offset)) + "%";
 		star.style.left = String((c[sec][i].x * offset) + left_off) + "%";
 		star.style.background = c[sec][i].sd.hexcolor;
 		grid.appendChild(star);
 	}
+}
+
+function barrier(target) {
+	var color = '#AAA';
+	var grid = document.getElementsByClassName("grid");
+	grid = grid[0];
+	window.setTimeout(function() {
+		grid.style[target] = '6px solid '+color;
+		window.setTimeout(function() {
+			grid.style[target] = '3px solid '+color;
+			window.setTimeout(function() {
+				grid.style[target] = '1px solid '+color;
+				window.setTimeout(function() {
+					grid.style[target] = 'none';
+				},100);
+			},100);
+		},100);
+	},100);
 }
 
 function checkKey(e) {
@@ -400,19 +429,19 @@ function checkKey(e) {
 
     if (e.keyCode == '38') {
         // up arrow
-        move(sec[0],(sec[1]+1));
+        move(sec[0],(sec[1]+1),38);
     }
     else if (e.keyCode == '40') {
         // down arrow
-        move(sec[0],(sec[1]-1));
+        move(sec[0],(sec[1]-1),40);
     }
     else if (e.keyCode == '37') {
        // left arrow
-       move((sec[0]-1),sec[1]);
+       move((sec[0]-1),sec[1],37);
     }
     else if (e.keyCode == '39') {
        // right arrow
-       move((sec[0]+1),sec[1]);
+       move((sec[0]+1),sec[1],39);
     }
 
 
