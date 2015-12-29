@@ -319,18 +319,6 @@ function birth() {
 }
 
 function move(x,y) {
-	// first update labels
-	var lbl = document.getElementById("sec-00");
-	lbl.innerHTML = "("+x+","+y+")";
-	
-	var grid = document.getElementsByClassName("grid");
-	grid = grid[0];
-	// remove current stars
-	var stars = document.getElementsByClassName("star");
-	while(stars.length > 0){
-        stars[0].parentNode.removeChild(stars[0]);
-    }
-
 	// we read in config
 	var c = g('sectors');
 	c = JSON.parse(c);
@@ -338,15 +326,33 @@ function move(x,y) {
 	var config = g('config');
 	config = JSON.parse(config);
 
-	var offset, top_off, left_off;
+	// Are we moving to an unknown regiod?
+	var sec = x+":"+y;
+	if(c[sec] === undefined && config.is_infinite === false) {
+		// give feedback that you cant go that way
+		console.log('darbe dragons');
+		return false;
+	}
+	
+	var grid = document.getElementsByClassName("grid");
+	grid = grid[0];
 
+	// update labels
+	var lbl = document.getElementById("sec-00");
+	lbl.innerHTML = "("+x+","+y+")";
+
+	// remove current stars
+	var stars = document.getElementsByClassName("star");
+	while(stars.length > 0){
+        stars[0].parentNode.removeChild(stars[0]);
+    }
+
+	var offset, top_off, left_off;
 	
 	// only one sector
 	offset = (100 / parseInt(config.sector_size));
 	top_off = 0;
 	left_off = 0;
-
-		
 
 	grid.style.height = grid.offsetWidth + "px";
 
@@ -444,9 +450,6 @@ function start() {
 
 document.addEventListener("DOMContentLoaded", function(event) { 
   	start();
-
-	var btn = document.getElementById("build");
-	btn.addEventListener("click",birth,false);
 
 	document.onkeydown = checkKey;
 
