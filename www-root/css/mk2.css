@@ -25,7 +25,7 @@ body {
 .horiz {
   width: 100%;
   height: 1px;
-  background: #555;
+  background: #00008B;
   position: absolute;
   left: 0px;
   z-index: 100;
@@ -34,7 +34,7 @@ body {
 .vert {
   width: 1px;
   height: 100%;
-  background: #555;
+  background: #00008B;
   position: absolute;
   top: 0px;
   z-index: 100;
@@ -60,6 +60,30 @@ body {
   height: 2%;
   background: #FFF;
   position: absolute;
+}
+.startype-B {
+  width: 2.5%;
+  height: 2.5%;
+}
+.startype-A {
+  width: 2%;
+  height: 2%;
+}
+.startype-F {
+  width: 1.8%;
+  height: 1.8%;
+}
+.startype-G{
+  width: 1.5%;
+  height: 1.5%;
+}
+.startype-K {
+  width: 1.3%;
+  height: 1.3%;
+}
+.startype-M {
+  width: 1%;
+  height: 1%;
 }
 
 .sector-label {

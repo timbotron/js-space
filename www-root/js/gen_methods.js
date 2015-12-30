@@ -257,6 +257,7 @@ function getStar() {
 	ret.t = tmp * 100;
 	ret.type = m[i].type;
 	ret.cls = m[i].cls;
+	ret.cssClass = "startype-" + ret.cls;
 	ret.color = m[i].color;
 	ret.hexcolor = color;
 	tmp = m[i].max_m * fraction;
@@ -301,10 +302,6 @@ function birth() {
 				star.sd = getStar();
 				scratch[star.x][star.y] = 1;
 				star_count++;
-				if(star.x == 0) {
-					console.log(sector_x,sector_y,star.x,star.y);
-				}
-				//output_this("Star! ("+star.x+","+star.y+")");
 				sectors[sector_x+":"+sector_y].push(star);
 
 
@@ -387,7 +384,7 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		var star = document.createElement('a');
 		star.href = "javascript:;";
 		star.title = c[sec][i].sd.name;
-		star.className = "star";
+		star.className = "star "+c[sec][i].sd.cssClass;
 		star.dataset.id = sec+"."+i;
 		star.style.top = String(top_off - (c[sec][i].y * offset)) + "%";
 		star.style.left = String((c[sec][i].x * offset) + left_off) + "%";
