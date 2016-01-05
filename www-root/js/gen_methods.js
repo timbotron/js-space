@@ -165,8 +165,8 @@ function gen_other_map() {
 				max_m: 0.7,
 				min_r: 0.008,
 				max_r: 0.02,
-				min_l: 0.1,
-				max_l: 0.001};
+				min_l: 0.001,
+				max_l: 0.1};
 	r[1] = {cls: "K",
 				type:"giant",
 				min_t: 30,
@@ -475,8 +475,33 @@ function start() {
 	oReq.send();
 }
 
+function paintLabelEnds() {
+	var lefts = document.getElementsByClassName('ll-end');
+	var rights = document.getElementsByClassName('rl-end');
+
+	for(var i = 0;i < lefts.length;i++) {
+		var ctx = lefts[i].getContext('2d');
+		ctx.beginPath();
+		ctx.fillStyle = ' #F0F8FF';
+		ctx.moveTo(0,15);
+		ctx.lineTo(15,0);
+		ctx.lineTo(15,15);
+		ctx.fill();
+	}
+	for(var i = 0;i < rights.length;i++) {
+		var ctx = rights[i].getContext('2d');
+		ctx.beginPath();
+		ctx.fillStyle = ' #F0F8FF';
+		ctx.moveTo(15,15);
+		ctx.lineTo(0,0);
+		ctx.lineTo(0,15);
+		ctx.fill();
+	}
+}
+
 document.addEventListener("DOMContentLoaded", function(event) { 
   	start();
+  	paintLabelEnds();
 
 	document.onkeydown = checkKey;
 
