@@ -485,15 +485,17 @@ function paintLabelEnds() {
 		ctx.fillStyle = ' #F0F8FF';
 		ctx.moveTo(0,15);
 		ctx.lineTo(15,0);
-		ctx.lineTo(15,15);
+		ctx.lineTo(50,0);
+		ctx.lineTo(50,15);
 		ctx.fill();
 	}
 	for(var i = 0;i < rights.length;i++) {
 		var ctx = rights[i].getContext('2d');
 		ctx.beginPath();
 		ctx.fillStyle = ' #F0F8FF';
-		ctx.moveTo(15,15);
-		ctx.lineTo(0,0);
+		ctx.moveTo(0,0);
+		ctx.lineTo(35,0);
+		ctx.lineTo(50,15);
 		ctx.lineTo(0,15);
 		ctx.fill();
 	}
