@@ -3,8 +3,8 @@
   "cradle_size": 5,
   "sector_size": 50,
   "name": "Thors Cradle",
-  "min_stars_per_sector": 10,
-  "max_stars_per_sector": 30,
+  "min_stars_per_sector": 7,
+  "max_stars_per_sector": 26,
   "min_star_distance": 3,
   "ship_layouts": [
     {

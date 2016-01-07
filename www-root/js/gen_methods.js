@@ -156,7 +156,7 @@ function gen_other_map() {
 
 	var r = new Array(2);
 
-	r[0] = {cls: "F",
+	r[0] = {cls: "D",
 				type:"white dwarf",
 				min_t: 4,
 				max_t: 150,
@@ -167,7 +167,7 @@ function gen_other_map() {
 				max_r: 0.02,
 				min_l: 0.001,
 				max_l: 0.1};
-	r[1] = {cls: "K",
+	r[1] = {cls: "Gi",
 				type:"giant",
 				min_t: 30,
 				max_t: 45,
@@ -212,23 +212,16 @@ function getStar() {
 
 		if(r <= 13) {
 			i = 0;
-			color = "#AABBFF";
 		} else if(r <= 60) {
 			i = 1;
-			color = "#CAD8FF";
 		} else if(r <= 300) {
 			i = 2;
-			color = "#FBF8FF";
-			
 		} else if(r <= 760) {
 			i = 3;
-			color = "#FFF4E8";
 		} else if(r <= 1210) {
 			i = 4;
-			color = "#FFDDB4";
 		} else {
 			i = 5;
-			color = "#FFBD6F";
 
 		}
 
@@ -240,10 +233,8 @@ function getStar() {
 
 		if(r <= 9) {
 			i = 0;
-			color = "#AAA";
 		} else {
 			i = 1;
-			color = "#FFBD6F";
 		}
 	}
 
@@ -259,7 +250,6 @@ function getStar() {
 	ret.cls = m[i].cls;
 	ret.cssClass = "startype-" + ret.cls;
 	ret.color = m[i].color;
-	ret.hexcolor = color;
 	tmp = m[i].max_m * fraction;
 	ret.m = tmp.toFixed(2);
 	tmp = m[i].max_r * fraction;
@@ -278,7 +268,8 @@ function birth() {
 	var c = get_config();
 
 	// https://github.com/davidbau/seedrandom
-	Math.seedrandom('10.16.2010 TJH AND TLL FOREVA!');
+
+	Math.seedrandom(g('galaxy_seed'));
 	var star_count = 0;
 
 	
@@ -388,7 +379,7 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		star.dataset.id = sec+"."+i;
 		star.style.top = String(top_off - (c[sec][i].y * offset)) + "%";
 		star.style.left = String((c[sec][i].x * offset) + left_off) + "%";
-		star.style.background = c[sec][i].sd.hexcolor;
+		//star.style.background = c[sec][i].sd.hexcolor;
 		grid.appendChild(star);
 	}
 }
@@ -502,29 +493,8 @@ function paintLabelEnds() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) { 
-  	//start();
-  	var st = document.getElementById('star-test');
-  	var ctx = st.getContext('2d');
-  	// Create gradient
-	var grd = ctx.createRadialGradient(35,45,35,35,45,1);
-	grd.addColorStop(1,"red");
-	grd.addColorStop(0,"white");
-
-  	ctx.fillStyle = grd;
-  	//ctx.strokeStyle = 'green';
-  	//ctx.lineWidth = 3;
-  	ctx.beginPath();
-  	ctx.moveTo(0,45);
-  	ctx.quadraticCurveTo(35, 45, 35, 0);
-  	ctx.quadraticCurveTo(35, 45, 70, 45);
-  	ctx.quadraticCurveTo(35, 45, 35, 90);
-  	ctx.quadraticCurveTo(35, 45, 0, 45);
-  	//ctx.stroke();
-  	ctx.fill();
-
-  	//TODO now do a similar smaller star with real colors
-
-
+	s('galaxy_seed','10.16.2010 TJH AND TLL FOREVA!');
+  	start();
   	paintLabelEnds();
 
 	document.onkeydown = checkKey;
