@@ -502,7 +502,29 @@ function paintLabelEnds() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) { 
-  	start();
+  	//start();
+  	var st = document.getElementById('star-test');
+  	var ctx = st.getContext('2d');
+  	// Create gradient
+	var grd = ctx.createRadialGradient(35,45,35,35,45,1);
+	grd.addColorStop(1,"red");
+	grd.addColorStop(0,"white");
+
+  	ctx.fillStyle = grd;
+  	//ctx.strokeStyle = 'green';
+  	//ctx.lineWidth = 3;
+  	ctx.beginPath();
+  	ctx.moveTo(0,45);
+  	ctx.quadraticCurveTo(35, 45, 35, 0);
+  	ctx.quadraticCurveTo(35, 45, 70, 45);
+  	ctx.quadraticCurveTo(35, 45, 35, 90);
+  	ctx.quadraticCurveTo(35, 45, 0, 45);
+  	//ctx.stroke();
+  	ctx.fill();
+
+  	//TODO now do a similar smaller star with real colors
+
+
   	paintLabelEnds();
 
 	document.onkeydown = checkKey;
