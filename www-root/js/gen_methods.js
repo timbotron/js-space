@@ -15,6 +15,13 @@ function randBetween(min, max) {
 	}
 }
 
+function getPos(el) {
+    for (var lx=0, ly=0;
+         el != null;
+         lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+    return {x: lx,y: ly};
+}
+
 function output_this(str) {
 	var output = document.getElementsByClassName('output');
   output[0].innerHTML += str +'<br />';
@@ -306,6 +313,21 @@ function birth() {
 	output_this(star_count+" stars generated..");
 	output_this("Time elapsed: "+(end - start)+" ms");
 
+	// is the screen so small we need to crop height?
+	var grid = document.getElementsByClassName("grid");
+	grid = grid[0];
+	var g_pos = getPos(grid);
+	var b_height = window.innerHeight || document.body.clientHeight;
+	b_height -= g_pos.y;
+	var g_width = grid.offsetWidth;
+	if(b_height < g_width) {
+		grid.style.width = b_height + "px";
+		g_width = b_height - 10;
+	}
+
+	grid.style.height = g_width + "px";
+	grid.parentNode.parentNode.style.width = g_width + "px";
+
 	// now lets start with output!!
 	move(0,0,38);
 }
@@ -357,7 +379,7 @@ function move(x,y,dir) {
 	top_off = 100;
 	left_off = 0;
 
-	grid.style.height = grid.offsetWidth + "px";
+	
 
 	// draw bottom left
 	draw_sector(x,y,c,offset,top_off,left_off,grid,config.sector_size);
@@ -389,9 +411,7 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid,sector_size) {
 	var secSeed = sec + g('galaxy_seed');
 	Math.seedrandom(secSeed);
 	var num_background_stars = randBetween(15,25);
-	console.log(num_background_stars);
 	for(var i = 0;i < num_background_stars; i++) {
-		console.log(i);
 		var back_star = document.createElement('div');
 		var x = randBetween(0,sector_size);
 		var y = randBetween(0,sector_size);
