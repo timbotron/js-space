@@ -346,7 +346,10 @@ function move(x,y,dir) {
 	while(stars.length > 0){
         stars[0].parentNode.removeChild(stars[0]);
     }
-
+    var bg_star = document.getElementsByClassName("bg-star");
+	while(bg_star.length > 0){
+        bg_star[0].parentNode.removeChild(bg_star[0]);
+    }
 	var offset, top_off, left_off;
 	
 	// only one sector
@@ -357,7 +360,7 @@ function move(x,y,dir) {
 	grid.style.height = grid.offsetWidth + "px";
 
 	// draw bottom left
-	draw_sector(x,y,c,offset,top_off,left_off,grid);
+	draw_sector(x,y,c,offset,top_off,left_off,grid,config.sector_size);
 
 	// now we add listeners
 	stars = document.getElementsByClassName("star");
@@ -369,8 +372,9 @@ function move(x,y,dir) {
 	grid.dataset.cursec = x+":"+y;
 }
 
-function draw_sector(x,y,c,offset,top_off,left_off,grid) {
+function draw_sector(x,y,c,offset,top_off,left_off,grid,sector_size) {
 	var sec = x+":"+y;
+	// Draw real stars
 	for(i = 0;i < c[sec].length;i++) {
 		var star = document.createElement('a');
 		star.href = "javascript:;";
@@ -379,9 +383,26 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid) {
 		star.dataset.id = sec+"."+i;
 		star.style.top = String(top_off - (c[sec][i].y * offset)) + "%";
 		star.style.left = String((c[sec][i].x * offset) + left_off) + "%";
-		//star.style.background = c[sec][i].sd.hexcolor;
 		grid.appendChild(star);
 	}
+	// Now draw background stars
+	var secSeed = sec + g('galaxy_seed');
+	Math.seedrandom(secSeed);
+	var num_background_stars = randBetween(15,25);
+	console.log(num_background_stars);
+	for(var i = 0;i < num_background_stars; i++) {
+		console.log(i);
+		var back_star = document.createElement('div');
+		var x = randBetween(0,sector_size);
+		var y = randBetween(0,sector_size);
+		var l = randBetween(0,2);
+		back_star.className = "bg-star bg-star-" + String(l);
+		back_star.style.top = String(top_off - (y * offset)) + "%";
+		back_star.style.left = String((x * offset) + left_off) + "%";
+		grid.appendChild(back_star);
+
+	}
+
 }
 
 function barrier(target) {

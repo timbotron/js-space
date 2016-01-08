@@ -105,6 +105,14 @@ body {
 .startype-M {
   background: url('/assets/Starsprite.mk3.png') 0px 0px no-repeat;
 }
+.bg-star {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+}
+.bg-star-0 { background-color: #FFF; }
+.bg-star-1 { background-color: #AAA; }
+.bg-star-2 { background-color: #777; }
 
 .sector-label {
   color: #BBB;
