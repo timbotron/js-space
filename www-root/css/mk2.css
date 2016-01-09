@@ -6,11 +6,16 @@ body {
   padding: 0.5%;
   border: 2px solid #F0F8FF;
   border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
 }
 .viewcube {
   position: relative;
   overflow: hidden;
-  max-width: 550px;
+  width: 550px;
+  float: left;
+  margin: 0 3px;
 }
 .label-section {
   color: #F0F8FF;
@@ -30,9 +35,14 @@ body {
 }
 .cubecontent {
   border: 3px solid #F0F8FF;
-  border-radius: 1%;
+  border-radius: 3px;
   position: relative;
   overflow: hidden;
+  min-height: 200px;
+}
+#infocube {
+  width: 300px;
+  color: #F0F8FF;
 }
 .grid {
 

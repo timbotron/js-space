@@ -27,6 +27,16 @@
 			</div>
 		</div>
 	</div>
+	<div class="viewcube" id="infocube">
+		<div class="label-section">
+			<canvas class="ll-end" height="15" width="50"></canvas>
+			<div class="label">Detail</div>
+			<canvas class="rl-end" height="15" width="50"></canvas>
+		</div>
+		<div class="cubecontent infoContent">
+			
+		</div>
+	</div>
 	<br />
 	<br />
 	<br />
@@ -35,4 +45,16 @@
 	</div>
 </div>
 </body>
+<script type="text/html" id="tplCube">
+	<div class="viewcube {class}" id="{id}">
+		<div class="label-section">
+			<canvas class="ll-end" height="15" width="50"></canvas>
+			<div class="label">{label}</div>
+			<canvas class="rl-end" height="15" width="50"></canvas>
+		</div>
+		<div class="cubecontent">
+			{content}
+		</div>
+	</div>
+</script>	
 </html>

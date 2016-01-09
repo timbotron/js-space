@@ -314,19 +314,38 @@ function birth() {
 	output_this("Time elapsed: "+(end - start)+" ms");
 
 	// is the screen so small we need to crop height?
+	// var main = document.getElementById("main");
 	var grid = document.getElementsByClassName("grid");
 	grid = grid[0];
 	var g_pos = getPos(grid);
 	var b_height = window.innerHeight || document.body.clientHeight;
-	b_height -= g_pos.y;
-	var g_width = grid.offsetWidth;
-	if(b_height < g_width) {
-		grid.style.width = b_height + "px";
-		g_width = b_height - 10;
-	}
+	var b_width = window.innerWidth || document.body.clientWidth;
 
-	grid.style.height = g_width + "px";
-	grid.parentNode.parentNode.style.width = g_width + "px";
+	// we need the smallest of 550, b_width or b_height
+	var base_line = 550;
+	if(base_line > b_width) {
+		base_line = b_width;
+	}
+	if(base_line > b_height) {
+		base_line = b_height;
+	}
+	
+	base_line -= (g_pos.y + 6); // where 6 is a buffer
+	// main.style.minHeight = b_height + "px";
+	// var g_width = grid.offsetWidth;
+	// if(b_height < b_width) {
+	// 	grid.style.width = b_height + "px";
+	// 	g_width = b_height - 10;
+	// } else {
+	// 	grid.style.width = b_width + "px";
+	// 	g_width = b_height - 10;
+	// }
+
+	s('cube_height',base_line);
+
+	grid.style.height = base_line + "px";
+	grid.style.width = base_line + "px";
+	grid.parentNode.parentNode.style.width = base_line + "px";
 
 	// now lets start with output!!
 	move(0,0,38);
@@ -477,6 +496,17 @@ function checkKey(e) {
 
 }
 
+function fetchTemplate(name,id,label) {
+	var tpl = document.getElementById(name);
+	var ret;
+	console.log(tpl);
+	ret = tpl.innerHTML;
+	ret = ret.replace(/{id}/i, id);
+	ret = ret.replace(/{label}/i, label);
+	console.log(ret);
+	return ret;
+}
+
 function star_info() {
 	var info = this.dataset.id.split('.');
 	var sec = info[0];
@@ -485,15 +515,38 @@ function star_info() {
 	// we read in config
 	var c = g('sectors');
 	c = JSON.parse(c);
-	output_this("==========================================");
-	output_this("Name: "+c[sec][i].sd.name);
-	output_this("Coordinates: S("+sec+") ("+c[sec][i].x+","+c[sec][i].y+")");
-	output_this("Class: "+c[sec][i].sd.cls);
-	output_this("Type: "+c[sec][i].sd.color + " " + c[sec][i].sd.type);
-	output_this("Temp: "+c[sec][i].sd.t + " K");
-	output_this("Solar Mass: "+c[sec][i].sd.m + " M");
-	output_this("Solar Radii: "+c[sec][i].sd.r + " R");
-	output_this("Lumeniscence: "+c[sec][i].sd.l + " l");
+
+	// first we clear out the detail window
+	var content_area = document.getElementsByClassName('infoContent');
+	content_area = content_area[0];
+	console.log(content_area);
+	content_area.innerHTML = '';
+
+	var info_data = "\t<dl>\n";
+	info_data += "\t\t<dt>Name:</dt><dd>"+c[sec][i].sd.name + "</dd>\n";
+	info_data += "\t\t<dt>Coordinates:</dt><dd>S(" + sec + ") (" + c[sec][i].x +" ," + c[sec][i].y+")</dd>\n";
+	info_data += "\t\t<dt>Class:</dt><dd>" + c[sec][i].sd.cls + "</dd>\n";
+	info_data += "\t\t<dt>Type:</dt><dd>"+c[sec][i].sd.color + " " + c[sec][i].sd.type + "</dd>\n";
+	info_data += "\t\t<dt>Temp:</dt><dd>"+c[sec][i].sd.t + " K</dd>\n";
+	info_data += "\t\t<dt>Solar Mass:</dt><dd>"+c[sec][i].sd.m + " M</dd>\n";
+	info_data += "\t\t<dt>Solar Radii:</dt><dd>"+c[sec][i].sd.r + " R</dd>\n";
+	info_data += "\t\t<dt>Lumeniscence:</dt><dd>"+c[sec][i].sd.l + " l</dd>\n";
+	info_data += "\t</dl>\n";
+	console.log(info_data);
+	content_area.innerHTML = info_data;
+
+
+
+	
+	// output_this("==========================================");
+	// output_this("Name: "+c[sec][i].sd.name);
+	// output_this("Coordinates: S("+sec+") ("+c[sec][i].x+","+c[sec][i].y+")");
+	// output_this("Class: "+c[sec][i].sd.cls);
+	// output_this("Type: "+c[sec][i].sd.color + " " + c[sec][i].sd.type);
+	// output_this("Temp: "+c[sec][i].sd.t + " K");
+	// output_this("Solar Mass: "+c[sec][i].sd.m + " M");
+	// output_this("Solar Radii: "+c[sec][i].sd.r + " R");
+	// output_this("Lumeniscence: "+c[sec][i].sd.l + " l");
 }
 
 function start() {
