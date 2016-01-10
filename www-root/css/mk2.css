@@ -86,34 +86,34 @@ body {
 .star {
   display: block;
   border-radius: 100%;
-  width: 9px;
-  height: 11px;
+  width: 18px;
+  height: 22px;
   position: absolute;
   z-index: 200;
 }
 .startype-Gi {
-  background: url('/assets/Starsprite.mk3.png') -54px 0px  no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -108px 0px  no-repeat;
 }
 .startype-D {
-  background: url('/assets/Starsprite.mk3.png') -63px 0px  no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -126px 0px  no-repeat;
 }
 .startype-B {
-  background: url('/assets/Starsprite.mk3.png') -45px 0px  no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -90px 0px  no-repeat;
 }
 .startype-A {
-  background: url('/assets/Starsprite.mk3.png') -36px 0px  no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -72px 0px  no-repeat;
 }
 .startype-F {
-  background: url('/assets/Starsprite.mk3.png') -27px 0px  no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -54px 0px  no-repeat;
 }
 .startype-G{
-  background: url('/assets/Starsprite.mk3.png') -18px 0px  no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -36px 0px  no-repeat;
 }
 .startype-K {
-  background: url('/assets/Starsprite.mk3.png') -9px 0px no-repeat;
+  background: url('/assets/Starsprite.mk4.png') -18px 0px no-repeat;
 }
 .startype-M {
-  background: url('/assets/Starsprite.mk3.png') 0px 0px no-repeat;
+  background: url('/assets/Starsprite.mk4.png') 0px 0px no-repeat;
 }
 .bg-star {
   width: 1px;
