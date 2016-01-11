@@ -430,14 +430,15 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid,sector_size) {
 	var secSeed = sec + g('galaxy_seed');
 	Math.seedrandom(secSeed);
 	var num_background_stars = randBetween(70,90);
+	var limit = g('cube_height');
 	for(var i = 0;i < num_background_stars; i++) {
 		var back_star = document.createElement('div');
-		var x = randBetween(0,sector_size);
-		var y = randBetween(0,sector_size);
+		var x = randBetween(0,limit);
+		var y = randBetween(0,limit);
 		var l = randBetween(0,3);
 		back_star.className = "bg-star bg-star-" + String(l);
-		back_star.style.top = String(top_off - (y * offset)) + "%";
-		back_star.style.left = String((x * offset) + left_off) + "%";
+		back_star.style.top = String(y) + "px";
+		back_star.style.left = String(x) + "px";
 		grid.appendChild(back_star);
 
 	}
