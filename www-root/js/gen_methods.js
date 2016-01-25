@@ -508,6 +508,32 @@ function fetchTemplate(name,id,label) {
 	return ret;
 }
 
+function clearStarInfo() {
+	// clear the box
+	var content_area = document.getElementsByClassName('infoContent');
+	content_area = content_area[0];
+	content_area.innerHTML = '';
+
+	// clear the highlight
+	var selected_star = document.getElementsByClassName("selected-star");
+	if(selected_star.length > 0) {
+	    selected_star[0].parentNode.removeChild(selected_star[0]);
+	}
+
+}
+
+function addHighlight(top,left,width,height) {
+	var high = document.createElement('div');
+	high.style.top = top;
+	high.style.left = left;
+	high.className = "selected-star";
+
+	var grid = document.getElementsByClassName("grid");
+	grid = grid[0];
+	grid.appendChild(high);
+
+}
+
 function star_info() {
 	var info = this.dataset.id.split('.');
 	var sec = info[0];
@@ -518,10 +544,10 @@ function star_info() {
 	c = JSON.parse(c);
 
 	// first we clear out the detail window
-	var content_area = document.getElementsByClassName('infoContent');
-	content_area = content_area[0];
-	console.log(content_area);
-	content_area.innerHTML = '';
+	clearStarInfo();
+
+	// Then we add the highlight for that star
+	addHighlight(this.style.top,this.style.left);
 
 	var info_data = "\t<dl>\n";
 	info_data += "\t\t<dt>Name:</dt><dd>"+c[sec][i].sd.name + "</dd>\n";
@@ -533,7 +559,8 @@ function star_info() {
 	info_data += "\t\t<dt>Solar Radii:</dt><dd>"+c[sec][i].sd.r + " R</dd>\n";
 	info_data += "\t\t<dt>Lumeniscence:</dt><dd>"+c[sec][i].sd.l + " l</dd>\n";
 	info_data += "\t</dl>\n";
-	console.log(info_data);
+	var content_area = document.getElementsByClassName('infoContent');
+	content_area = content_area[0];
 	content_area.innerHTML = info_data;
 
 

@@ -1,5 +1,6 @@
 body {
   background: #000;
+  font-family: sans-serif;
 }
 #main {
   margin: 1%;
@@ -90,30 +91,47 @@ body {
   height: 22px;
   position: absolute;
   z-index: 200;
+  border: 1px solid #F0F8FF;
 }
 .startype-Gi {
-  background: url('/assets/Starsprite.mk4.png') -108px 0px  no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-D {
-  background: url('/assets/Starsprite.mk4.png') -126px 0px  no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-B {
-  background: url('/assets/Starsprite.mk4.png') -90px 0px  no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-A {
-  background: url('/assets/Starsprite.mk4.png') -72px 0px  no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-F {
-  background: url('/assets/Starsprite.mk4.png') -54px 0px  no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-G{
-  background: url('/assets/Starsprite.mk4.png') -36px 0px  no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-K {
-  background: url('/assets/Starsprite.mk4.png') -18px 0px no-repeat;
+  width: 1.5%;
+  height: 1.5%;
 }
 .startype-M {
-  background: url('/assets/Starsprite.mk4.png') 0px 0px no-repeat;
+  width: 1.5%;
+  height: 1.5%;
+}
+.selected-star {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  z-index: 300;
+  position: absolute;
+  width: 1.5%;
+  height: 1.5%;
 }
 .bg-star {
   width: 1px;
