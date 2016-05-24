@@ -374,6 +374,12 @@ function move(x,y,dir) {
 		}
 		return false;
 	}
+
+	// Lets remove any selected star box thing
+	var selected_stars = document.getElementsByClassName("selected-star");
+	while(selected_stars.length > 0){
+        selected_stars[0].parentNode.removeChild(selected_stars[0]);
+    }
 	
 	var grid = document.getElementsByClassName("grid");
 	grid = grid[0];
@@ -614,10 +620,29 @@ function paintLabelEnds() {
 	}
 }
 
+function paintArrows() {
+	var left = document.getElementById("arrow-left");
+	console.log(left);
+	var right = document.getElementById("arrow-right");
+	var up = document.getElementById("arrow-up");
+	var down = document.getElementById("arrow-down");
+
+	var ctx = left.getContext('2d');
+	ctx.beginPath();
+	ctx.fillStyle = ' #F0F8FF';
+	ctx.moveTo(5,25);
+	ctx.lineTo(40,25);
+	// ctx.lineTo(50,0);
+	// ctx.lineTo(50,15);
+	ctx.fill();
+
+}
+
 document.addEventListener("DOMContentLoaded", function(event) { 
 	s('galaxy_seed','10.16.2010 TJH AND TLL FOREVA!');
   	start();
   	paintLabelEnds();
+  	paintArrows();
 
 	document.onkeydown = checkKey;
 
