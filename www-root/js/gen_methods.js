@@ -620,21 +620,85 @@ function paintLabelEnds() {
 	}
 }
 
+function __triggerKeyboardEvent(el, keyCode)
+{
+    var eventObj = document.createEventObject ?
+        document.createEventObject() : document.createEvent("Events");
+  
+    if(eventObj.initEvent){
+      eventObj.initEvent("keydown", true, true);
+    }
+  
+    eventObj.keyCode = keyCode;
+    eventObj.which = keyCode;
+    
+    el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("onkeydown", eventObj); 
+  
+} 
+
 function paintArrows() {
 	var left = document.getElementById("arrow-left");
-	console.log(left);
 	var right = document.getElementById("arrow-right");
 	var up = document.getElementById("arrow-up");
 	var down = document.getElementById("arrow-down");
 
-	var ctx = left.getContext('2d');
+	var ctx = up.getContext('2d');
 	ctx.beginPath();
-	ctx.fillStyle = ' #F0F8FF';
-	ctx.moveTo(5,25);
-	ctx.lineTo(40,25);
-	// ctx.lineTo(50,0);
-	// ctx.lineTo(50,15);
-	ctx.fill();
+	ctx.strokeStyle = ' #F0F8FF';
+	ctx.lineWidth = 4;
+	ctx.moveTo(5,20);
+	ctx.lineTo(23,5);
+	ctx.lineTo(41,20);
+	ctx.moveTo(23,5);
+	ctx.lineTo(23,41);
+	ctx.stroke();
+
+	ctx = down.getContext('2d');
+	ctx.beginPath();
+	ctx.strokeStyle = ' #F0F8FF';
+	ctx.lineWidth = 4;
+	ctx.moveTo(5,26);
+	ctx.lineTo(23,41);
+	ctx.lineTo(41,26);
+	ctx.moveTo(23,41);
+	ctx.lineTo(23,5);
+	ctx.stroke();
+
+	ctx = left.getContext('2d');
+	ctx.beginPath();
+	ctx.strokeStyle = ' #F0F8FF';
+	ctx.lineWidth = 4;
+	ctx.moveTo(20,5);
+	ctx.lineTo(5,23);
+	ctx.lineTo(20,41);
+	ctx.moveTo(5,23);
+	ctx.lineTo(41,23);
+	ctx.stroke();
+
+	ctx = right.getContext('2d');
+	ctx.beginPath();
+	ctx.strokeStyle = ' #F0F8FF';
+	ctx.lineWidth = 4;
+	ctx.moveTo(26,5);
+	ctx.lineTo(41,23);
+	ctx.lineTo(25,41);
+	ctx.moveTo(41,23);
+	ctx.lineTo(5,23);
+	ctx.stroke();
+
+	// now lets add listeners
+	up.addEventListener("click",function() {
+		__triggerKeyboardEvent(document.body,38);
+	});
+	down.addEventListener("click",function() {
+		__triggerKeyboardEvent(document.body,40);
+	});
+	left.addEventListener("click",function() {
+		__triggerKeyboardEvent(document.body,37);
+	});
+	right.addEventListener("click",function() {
+		__triggerKeyboardEvent(document.body,39);
+	});
 
 }
 
