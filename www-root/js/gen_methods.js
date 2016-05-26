@@ -703,7 +703,14 @@ function paintArrows() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) { 
-	s('galaxy_seed','10.16.2010 TJH AND TLL FOREVA!');
+	var seed = '10.16.2010 TJH AND TLL FOREVA!';
+	var uri = window.location.search.replace("?", "");
+	uri = uri.split('=');
+	if(uri.length > 1) {
+		seed = uri[1];
+	}
+	console.log(seed);
+	s('galaxy_seed',seed);
   	start();
   	paintLabelEnds();
   	paintArrows();
