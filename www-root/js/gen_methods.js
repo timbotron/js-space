@@ -322,7 +322,7 @@ function birth() {
 	var b_width = window.innerWidth || document.body.clientWidth;
 
 	// we need the smallest of 550, b_width or b_height
-	var base_line = 550;
+	var base_line = 450;
 	if(base_line > b_width) {
 		base_line = b_width;
 	}
@@ -506,11 +506,9 @@ function checkKey(e) {
 function fetchTemplate(name,id,label) {
 	var tpl = document.getElementById(name);
 	var ret;
-	console.log(tpl);
 	ret = tpl.innerHTML;
 	ret = ret.replace(/{id}/i, id);
 	ret = ret.replace(/{label}/i, label);
-	console.log(ret);
 	return ret;
 }
 
@@ -529,10 +527,16 @@ function clearStarInfo() {
 }
 
 function addHighlight(top,left,width,height) {
+	var adjuster = 1.5;
 	var high = document.createElement('div');
-	high.style.top = top;
-	high.style.left = left;
+	top = parseFloat(top.replace("%","")) - adjuster;
+	high.style.top = String(top) + "%";
+	left = parseFloat(left.replace("%","")) - adjuster;
+	high.style.left = String(left) + "%";
 	high.className = "selected-star";
+
+	// we need to alter the position a bit
+
 
 	var grid = document.getElementsByClassName("grid");
 	grid = grid[0];
@@ -709,7 +713,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	if(uri.length > 1) {
 		seed = uri[1];
 	}
-	console.log(seed);
 	s('galaxy_seed',seed);
   	start();
   	paintLabelEnds();

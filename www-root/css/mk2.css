@@ -1,6 +1,7 @@
 body {
   background: #000;
   font-family: sans-serif;
+  margin: 2px;
 }
 #main {
   margin: 1%;
@@ -142,12 +143,11 @@ body {
   height: 1.5%;
 }
 .selected-star {
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+  border: 2px solid white;
   z-index: 300;
   position: absolute;
-  width: 1.5%;
-  height: 1.5%;
+  width: 4%;
+  height: 4%;
 }
 .bg-star {
   width: 1px;
