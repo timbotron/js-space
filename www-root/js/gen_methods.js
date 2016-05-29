@@ -452,21 +452,26 @@ function draw_sector(x,y,c,offset,top_off,left_off,grid,sector_size) {
 }
 
 function barrier(target) {
-	var color = '#AAA';
+	var color = 'red';
 	var grid = document.getElementsByClassName("grid");
 	grid = grid[0];
+	grid = grid.parentElement;
+	grid.style[target] = '3px solid '+color;
 	window.setTimeout(function() {
-		grid.style[target] = '6px solid '+color;
-		window.setTimeout(function() {
-			grid.style[target] = '3px solid '+color;
-			window.setTimeout(function() {
-				grid.style[target] = '1px solid '+color;
-				window.setTimeout(function() {
-					grid.style[target] = 'none';
-				},100);
-			},100);
-		},100);
+		grid.style[target] = '3px solid #F0F8FF';
 	},100);
+	// window.setTimeout(function() {
+	// 	grid.style[target] = '6px solid '+color;
+	// 	window.setTimeout(function() {
+	// 		grid.style[target] = '3px solid '+color;
+	// 		window.setTimeout(function() {
+	// 			grid.style[target] = '1px solid '+color;
+	// 			window.setTimeout(function() {
+	// 				grid.style[target] = 'none';
+	// 			},100);
+	// 		},100);
+	// 	},100);
+	// },100);
 }
 
 function checkKey(e) {
@@ -594,7 +599,7 @@ function start() {
 		s('config',this.responseText);
 		birth();
 	});
-	oReq.open("GET", '/js/config.mk2.json');
+	oReq.open("GET", 'js/config.json');
 	oReq.send();
 }
 

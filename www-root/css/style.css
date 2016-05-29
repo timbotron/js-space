@@ -104,43 +104,51 @@ body {
 .star {
   display: block;
   border-radius: 100%;
-  width: 18px;
-  height: 22px;
+  /*width: 18px;
+  height: 22px;*/
   position: absolute;
   z-index: 200;
-  border: 1px solid #F0F8FF;
+  
 }
 .startype-Gi {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #FFBD6F;
 }
 .startype-D {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #AAA;
 }
 .startype-B {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #AABBFF;
 }
 .startype-A {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #CAD8FF;
 }
 .startype-F {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #FBF8FF;
 }
 .startype-G{
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #FFF4E8;
 }
 .startype-K {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #FFDDB4;
 }
 .startype-M {
   width: 1.5%;
   height: 1.5%;
+  border: 1px solid #FFBD6F;
 }
 .selected-star {
   border: 2px solid white;

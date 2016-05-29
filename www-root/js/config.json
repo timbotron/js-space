@@ -1,0 +1,9 @@
+{
+  "is_infinite": false,
+  "cradle_size": 5,
+  "sector_size": 30,
+  "name": "Thors Cradle",
+  "min_stars_per_sector": 7,
+  "max_stars_per_sector": 26,
+  "min_star_distance": 3
+}
