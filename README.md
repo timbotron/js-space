@@ -15,7 +15,7 @@ JS-Space a tool/game that will generate a mostly-realistic galaxy from a seed, t
 * Use the arrow keys on screen, or on your keyboard to navigate about the galaxy.
 * Click/tap on a star to view it's details.
 
-### Some neato features:
+## Some neato features:
 
 * Alter the config.json to change the number of sectors that are generated, min distance between generated stars, etc.
 * The Sector View window is calibrated on page load, so on your phone try loading it in portrait vs landscape mode to see different layouts.
