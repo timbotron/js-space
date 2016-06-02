@@ -23,11 +23,15 @@ JS-Space a tool/game that will generate a mostly-realistic galaxy from a seed, t
 * You can pass in a seed via the URI, otherwise it uses the default seed.
 * Only vanilla JS was used, no jQuery or anything else.
 * No images are used, it's all done via CSS and/or [HTML Canvas](https://en.wikipedia.org/wiki/Canvas_element) elements
-* The entire payload of this is less than 10kb! (when accounting for gzip)
+* The entire payload of this is less than 25kb! (when accounting for gzip)
 
 ## Giggly Technicial Aspects
 
 It's important to note this project was a prototype for an idea I had for a browser-based space game. After this work I'm pretty convinced this is *not* the way to go, but I had great fun while writing it, and I became much more familiar with vanilla JavaScript.
+
+## Credits
+
+Many thanks to [David Bau](http://davidbau.com) for their [seedrandom](https://github.com/davidbau/seedrandom) random number generator in JavaScript.
 
 ## License
 
