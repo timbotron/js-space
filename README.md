@@ -6,6 +6,8 @@ By [Tim Habersack](https://tim.hithlonde.com)
 
 Try it here: https://js-space.graviton.systems
 
+<img src="https://tim.hithlonde.com/blog/wp-content/uploads/2016/06/js-space1.png">
+
 ## Overview
 
 JS-Space a tool/game that will generate a mostly-realistic galaxy from a seed, then let you navigate around it to view the various stars within the galaxy. It's designed to work well on computers and mobile devices.
@@ -15,12 +17,12 @@ JS-Space a tool/game that will generate a mostly-realistic galaxy from a seed, t
 * Use the arrow keys on screen, or on your keyboard to navigate about the galaxy.
 * Click/tap on a star to view it's details.
 
-## Some neato features:
+## Some Neato Features
 
 * Alter the config.json to change the number of sectors that are generated, min distance between generated stars, etc.
 * The Sector View window is calibrated on page load, so on your phone try loading it in portrait vs landscape mode to see different layouts.
 * All the star details are mostly realistic main sequence type stars, with appropriate percent chance of existing. (Class M are much more common than class A, for example.)
-* You can pass in a seed via the URI, otherwise it uses the default seed.
+* You can pass in a seed via the URI. For example: https://js-space.graviton.systems/?seed=reverse_the_polarity . Otherwise it uses the default seed.
 * Only vanilla JS was used, no jQuery or anything else.
 * No images are used, it's all done via CSS and/or [HTML Canvas](https://en.wikipedia.org/wiki/Canvas_element) elements
 * The entire payload of this is less than 25kb! (when accounting for gzip)
@@ -36,3 +38,5 @@ Many thanks to [David Bau](http://davidbau.com) for their [seedrandom](https://g
 ## License
 
 You are free to copy, modify, and distribute JS-Space with attribution under the terms of the MIT license. See the LICENSE file for details.
+
+
